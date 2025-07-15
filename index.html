@@ -664,24 +664,41 @@
             </div>
 
             <div class="music-grid">
-                {% for song in songs %}
+                <!-- 示例音乐卡片1 -->
                 <div class="music-card">
                     <div class="album-cover-container">
-                        <img src="{{ url_for('serve_cover', filename=song[5]) }}"
-                             alt="{{ song[1] }}" class="album-cover">
+                        <img src="static/covers/our_summer.jpg" alt="Our Summer" class="album-cover">
                     </div>
                     <div class="music-info">
-                        <h3 class="song-title">{{ song[1] }}</h3>
-                        <p class="song-artist">{{ song[2] }} • {{ song[3] }}</p>
+                        <h3 class="song-title">Our Summer</h3>
+                        <p class="song-artist">TXT • K-pop</p>
                         <div class="play-control">
-                            <span class="duration">{{ song[4] }}</span>
-                            <button class="play-btn" onclick="playSong({{ song[0] }}, '{{ song[1] }}', '{{ song[2] }}')">
+                            <span class="duration">3:30</span>
+                            <button class="play-btn" onclick="playSong(1, 'Our Summer', 'TXT')">
                                 播放
                             </button>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+
+                <!-- 示例音乐卡片2 -->
+                <div class="music-card">
+                    <div class="album-cover-container">
+                        <img src="static/covers/example2.jpg" alt="Example Song" class="album-cover">
+                    </div>
+                    <div class="music-info">
+                        <h3 class="song-title">Example Song</h3>
+                        <p class="song-artist">Example Artist • Pop</p>
+                        <div class="play-control">
+                            <span class="duration">4:15</span>
+                            <button class="play-btn" onclick="playSong(2, 'Example Song', 'Example Artist')">
+                                播放
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 可以添加更多音乐卡片 -->
             </div>
         </div>
 
@@ -700,22 +717,20 @@
             </div>
 
             <div class="music-grid">
-                {% for song in songs %}
+                <!-- 示例音乐卡片1 -->
                 <div class="music-card">
                     <div class="album-cover-container">
-                        <img src="{{ url_for('serve_cover', filename=song[5]) }}"
-                             alt="{{ song[1] }}" class="album-cover">
+                        <img src="static/covers/our_summer.jpg" alt="Our Summer" class="album-cover">
                     </div>
                     <div class="music-info">
-                        <h3 class="song-title">{{ song[1] }}</h3>
-                        <p class="song-artist">{{ song[2] }} • {{ song[3] }}</p>
+                        <h3 class="song-title">Our Summer</h3>
+                        <p class="song-artist">TXT • K-pop</p>
                         <div class="play-control">
                             <button class="btn btn-secondary">编辑</button>
                             <button class="btn btn-secondary">删除</button>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
 
@@ -879,11 +894,8 @@
             <div>
                 <h3>热门歌曲排行</h3>
                 <ol>
-                    <li>夏天的风 - 周杰伦</li>
-                    <li>夜曲 - 周杰伦</li>
-                    <li>晴天 - 周杰伦</li>
-                    <li>七里香 - 周杰伦</li>
-                    <li>稻香 - 周杰伦</li>
+                    <li>Our Summer - TXT</li>
+                    <li>Example Song - Example Artist</li>
                 </ol>
             </div>
         </div>
@@ -905,7 +917,7 @@
                 <div class="log-item">
                     <span class="log-time">2023-05-15 13:45:33</span>
                     <span class="log-level-info">[INFO]</span>
-                    <span>新增歌曲 "夏天的风"</span>
+                    <span>新增歌曲 "Our Summer"</span>
                 </div>
                 <div class="log-item">
                     <span class="log-time">2023-05-15 10:22:18</span>
@@ -981,8 +993,8 @@
             // 显示播放器
             globalPlayer.style.display = 'block';
 
-            // 设置音频源
-            audioPlayer.src = `/audio/${songId}.mp3`;
+            // 设置音频源 - 修改为静态路径
+            audioPlayer.src = `static/audio/${songId}.mp3`;
 
             // 播放音乐
             audioPlayer.play();
