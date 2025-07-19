@@ -1,9 +1,11 @@
 :root {
-    --bg-color: #01B3C9;
-    --card-color: #4AC8D8;
-    --accent-color: #FFD83B;
-    --text-color: #FAF8E8;
-    --secondary-text: #E8E6D9;
+    --bg-color: #01B3C9; /* 主背景色：明亮青蓝 */
+    --sidebar-color: #7CE4E5; /* 侧边栏：浅水蓝 */
+    --card-color: #4AC8D8; /* 卡片颜色：中等青蓝 */
+    --text-color: #FAF8E8; /* 文字颜色：象牙白 */
+    --secondary-text: #E8E6D9; /* 次要文字：淡象牙白 */
+    --accent-color: #FFD83B; /* 强调色/按钮颜色：阳光黄 */
+    --active-accent: #FFE45E; /* 按钮激活状态：更亮的黄色 */
 }
 
 /* 基础重置 */
@@ -129,7 +131,7 @@ body {
 
 .play-btn {
     background-color: var(--accent-color);
-    color: #333;
+    color: var(--sidebar-text);
     border: none;
     padding: 6px 15px;
     border-radius: 15px;
@@ -139,7 +141,7 @@ body {
 }
 
 .play-btn:hover {
-    background-color: #FFE45E;
+    background-color: var(--active-accent);
 }
 
 /* 分组样式 */
