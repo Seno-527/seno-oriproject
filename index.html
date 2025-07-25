@@ -601,6 +601,66 @@
             line-height: 1.6;
         }
 
+        /* 运营统计样式 */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .stat-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--secondary-text);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-trend {
+            font-size: 14px;
+            color: var(--secondary-text);
+        }
+
+        .trend-up {
+            color: #4CAF50;
+        }
+
+        .trend-down {
+            color: #F44336;
+        }
+
+        .top-songs {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .top-songs th, .top-songs td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .top-songs th {
+            background-color: rgba(255,255,255,0.1);
+            font-weight: bold;
+        }
+
+        .top-songs tr:hover {
+            background-color: rgba(255,255,255,0.05);
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             body {
@@ -629,6 +689,9 @@
                 width: 100%;
                 height: auto;
                 max-height: 300px;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1228,10 +1291,46 @@
         <div id="operation-panel" class="management-panel">
             <div class="panel-header">
                 <h2 class="panel-title">运营管理</h2>
+                <p>系统运营数据统计和分析</p>
             </div>
-            <div class="operation-content">
-                <p>运营数据统计和分析将显示在这里。</p>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-title">页面浏览量</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-trend">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">歌曲播放量</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-trend">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">活跃用户</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-trend">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">新增收藏</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-trend">--</div>
+                </div>
             </div>
+
+            <h3>热门歌曲</h3>
+            <table class="top-songs">
+                <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>歌曲名称</th>
+                        <th>艺术家</th>
+                        <th>播放次数</th>
+                        <th>趋势</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 热门歌曲数据将通过JavaScript动态加载 -->
+                </tbody>
+            </table>
         </div>
 
         <!-- 日志管理面板 -->
@@ -2142,6 +2241,7 @@ To be with you`,
                     loadUserManagementData();
                     loadMusicManagementData();
                     loadLogData();
+                    loadOperationStats(); // 加载运营统计数据
                 }
             }
         }
@@ -2723,6 +2823,101 @@ To be with you`,
             }
         }
 
+        // 加载运营统计数据
+        function loadOperationStats() {
+            // 模拟API请求获取统计数据
+            setTimeout(() => {
+                // 模拟页面浏览数据
+                const pageViewsData = {
+                    success: true,
+                    data: {
+                        total_views: 12458,
+                        trend: [
+                            { date: '2023-05-01', count: 1200 },
+                            { date: '2023-05-02', count: 1350 },
+                            { date: '2023-05-03', count: 1500 },
+                            { date: '2023-05-04', count: 1420 },
+                            { date: '2023-05-05', count: 1800 },
+                            { date: '2023-05-06', count: 2100 },
+                            { date: '2023-05-07', count: 3088 }
+                        ]
+                    }
+                };
+
+                // 模拟歌曲播放数据
+                const songPlaysData = {
+                    success: true,
+                    data: {
+                        total_plays: 8765,
+                        popular_songs: [
+                            { id: 1, title: "Our Summer", artist: "TXT", play_count: 1250 },
+                            { id: 2, title: "Run Free", artist: "Deep Chills", play_count: 980 },
+                            { id: 3, title: "Barricades", artist: "泽野弘之", play_count: 850 },
+                            { id: 4, title: "Look You What Made Me Do", artist: "Taylor Swift", play_count: 720 },
+                            { id: 5, title: "this is what winter feels like", artist: "JVKE", play_count: 680 }
+                        ]
+                    }
+                };
+
+                // 更新页面浏览统计
+                updatePageViewsStats(pageViewsData.data);
+
+                // 更新歌曲播放统计
+                updateSongPlaysStats(songPlaysData.data);
+            }, 500);
+        }
+
+        // 更新页面浏览统计
+        function updatePageViewsStats(data) {
+            document.querySelector('.stat-card:nth-child(1) .stat-value').textContent =
+                data.total_views.toLocaleString();
+
+            // 更新趋势文本
+            const trendElement = document.querySelector('.stat-card:nth-child(1) .stat-trend');
+            if (data.trend.length >= 2) {
+                const last = data.trend[data.trend.length - 1].count;
+                const prev = data.trend[data.trend.length - 2].count;
+                const diff = last - prev;
+                const percent = (diff / prev * 100).toFixed(1);
+
+                trendElement.innerHTML = `
+                    <span class="trend-${diff >= 0 ? 'up' : 'down'}">
+                        ${diff >= 0 ? '↑' : '↓'} ${Math.abs(percent)}%
+                    </span> 相比上周
+                `;
+            }
+        }
+
+        // 更新歌曲播放统计
+        function updateSongPlaysStats(data) {
+            document.querySelector('.stat-card:nth-child(2) .stat-value').textContent =
+                data.total_plays.toLocaleString();
+
+            // 更新热门歌曲表格
+            const tbody = document.querySelector('.top-songs tbody');
+            tbody.innerHTML = '';
+
+            data.popular_songs.forEach((song, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${song.title}</td>
+                    <td>${song.artist}</td>
+                    <td>${song.play_count.toLocaleString()}</td>
+                    <td class="trend-up">↑</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // 更新趋势文本
+            const trendElement = document.querySelector('.stat-card:nth-child(2) .stat-trend');
+            if (data.popular_songs.length > 0) {
+                trendElement.innerHTML = `
+                    <span class="trend-up">↑ 15%</span> 相比上周
+                `;
+            }
+        }
+
         // 显示指定面板
         function showPanel(panelId) {
             // 隐藏所有面板
@@ -2746,6 +2941,8 @@ To be with you`,
                 loadMusicManagementData();
             } else if (panelId === 'log-panel') {
                 loadLogData();
+            } else if (panelId === 'operation-panel') {
+                loadOperationStats();
             }
 
             // 更新导航项active状态
